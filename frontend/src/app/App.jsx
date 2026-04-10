@@ -1,5 +1,5 @@
 import AppProviders from '@/app/AppProviders';
-import { selectAuthLoading } from '@auth/authSlice';
+import { selectAuthLoading } from '@store/authSlice';
 import { useAuth } from '@auth/hooks/useAuth';
 import AppRoutes from '@/routes/AppRoutes';
 import { useSelector } from 'react-redux';

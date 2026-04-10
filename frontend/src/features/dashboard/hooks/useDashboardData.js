@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { selectUser } from '@auth/authSlice';
+import { selectUser } from '@store/authSlice';
 import { getApprovalDashboard } from '@club/approvals/approvals.api';
 import { getAuditFeed, getUserAuditHistory } from '@club/audit/audit.api';
 import { getClubs, getSocieties, getUpcomingEvents } from '@club/discovery.api';
@@ -10,10 +10,7 @@ import { getGovernanceTemplates } from '@club/governance/governance.api';
 import { getMyMemberships, getPendingMemberships } from '@club/memberships/memberships.api';
 import { getOrganizationTree } from '@club/organizations.api';
 import { getRolesForUser } from '@club/roles.api';
-import {
-  formatCanonicalRole,
-  resolveDashboardAccess,
-} from '@dashboard/utils/dashboardAccess';
+import { formatCanonicalRole } from '@dashboard/utils/dashboardAccess';
 
 function toArrayResult(result) {
   if (Array.isArray(result)) {
@@ -109,17 +106,22 @@ export function useDashboardData() {
     userAuditQuery,
   ] = queryResults;
 
-  const access = useMemo(
-    () => resolveDashboardAccess(user, toArrayResult(rolesQuery.data)),
-    [rolesQuery.data, user],
+  const roles = toArrayResult(rolesQuery.data);
+  const activeCanonicalRoles = roles
+    .filter((role) => role.status !== 'REMOVED')
+    .map((role) => role.canonicalRole);
+  const isAdmin = ['UNIVERSITY_ADMIN', 'ADMIN', 'SUPER_ADMIN'].includes(user?.userType);
+  const canManageMembers = activeCanonicalRoles.some((role) =>
+    ['CLUB_LEAD', 'CO_LEAD'].includes(role),
+  );
+  const canViewApprovals = activeCanonicalRoles.some((role) =>
+    ['SECRETARY', 'VICE_PRESIDENT', 'PRESIDENT', 'FACULTY_ADVISOR', 'HOD', 'DEAN'].includes(role),
   );
 
   const manageableClubIds = useMemo(
     () =>
       toArrayResult(rolesQuery.data)
-        .filter((role) =>
-          ['CLUB_LEAD', 'CO_LEAD', 'COORDINATOR'].includes(role.canonicalRole),
-        )
+        .filter((role) => ['CLUB_LEAD', 'CO_LEAD', 'COORDINATOR'].includes(role.canonicalRole))
         .map((role) => role.scopeId),
     [rolesQuery.data],
   );
@@ -128,20 +130,20 @@ export function useDashboardData() {
     queries: manageableClubIds.map((clubId) => ({
       queryKey: ['dashboard', 'memberships', 'pending', clubId],
       queryFn: () => getPendingMemberships(clubId),
-      enabled: access.dashboardKind === 'clubLead',
+      enabled: canManageMembers,
     })),
   });
 
   const auditFeedQuery = useQuery({
     queryKey: ['dashboard', 'audit', 'feed'],
     queryFn: () => getAuditFeed(6),
-    enabled: ['approver', 'admin'].includes(access.dashboardKind),
+    enabled: canViewApprovals || isAdmin,
   });
 
   const governanceTemplatesQuery = useQuery({
     queryKey: ['dashboard', 'governance', 'templates'],
     queryFn: getGovernanceTemplates,
-    enabled: ['approver', 'admin'].includes(access.dashboardKind),
+    enabled: canViewApprovals || isAdmin,
   });
 
   const isLoading =
@@ -150,12 +152,20 @@ export function useDashboardData() {
     auditFeedQuery.isLoading ||
     governanceTemplatesQuery.isLoading;
 
+  const hasDashboardData =
+    queryResults.some((query) => query.data) ||
+    pendingMembershipQueries.some((query) => query.data) ||
+    auditFeedQuery.data ||
+    governanceTemplatesQuery.data;
+
   const error =
-    queryResults.find((query) => query.error)?.error ||
-    pendingMembershipQueries.find((query) => query.error)?.error ||
-    auditFeedQuery.error ||
-    governanceTemplatesQuery.error ||
-    null;
+    !isLoading && !hasDashboardData
+      ? queryResults.find((query) => query.error)?.error ||
+        pendingMembershipQueries.find((query) => query.error)?.error ||
+        auditFeedQuery.error ||
+        governanceTemplatesQuery.error ||
+        null
+      : null;
 
   return useMemo(() => {
     const organizations = toArrayResult(organizationsQuery.data);
@@ -235,7 +245,6 @@ export function useDashboardData() {
 
     return {
       user,
-      access,
       isLoading,
       error,
       stats,
@@ -254,7 +263,6 @@ export function useDashboardData() {
       pendingMemberships,
     };
   }, [
-    access,
     approvalsQuery.data,
     auditFeedQuery.data,
     clubsQuery.data,

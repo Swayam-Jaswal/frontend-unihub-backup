@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { clearAuth, setAuthLoading, setCredentials } from '@auth/authSlice';
+import { clearAuth, setAuthLoading, setCredentials } from '@store/authSlice';
 import { normalizeAuthUser } from '@auth/utils/normalizeAuthUser';
 import api from '@services/axios';
 

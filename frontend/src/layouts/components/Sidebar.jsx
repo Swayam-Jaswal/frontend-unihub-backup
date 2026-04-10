@@ -22,6 +22,8 @@ import {
   accountNavigationItems,
   mainNavigationItems,
 } from '@dashboard/config/navigation';
+import { formatCanonicalRole } from '@dashboard/utils/dashboardAccess';
+import { usePermission } from '@hooks/usePermission';
 import {
   getUserDisplayName,
   getUserInitials,
@@ -74,11 +76,8 @@ function SidebarLink({ collapsed, icon, label, onNavigate, to }) {
       onClick={onNavigate}
       to={to}
     >
-      {({ isActive }) => (
+      {() => (
         <>
-          {isActive ? (
-            <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-[var(--color-brand)] shadow-[0_0_24px_-4px_var(--color-brand)]" />
-          ) : null}
           <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center text-current">
             <LinkIcon className="h-[18px] w-[18px]" strokeWidth={1.9} />
           </span>
@@ -89,7 +88,9 @@ function SidebarLink({ collapsed, icon, label, onNavigate, to }) {
   );
 }
 
-function SidebarSection({ collapsed, items, onNavigate, title }) {
+function SidebarSection({ can, collapsed, items, onNavigate, title }) {
+  const visibleItems = items.filter((item) => item.permission === null || can(item.permission));
+
   return (
     <section>
       {!collapsed ? (
@@ -98,7 +99,7 @@ function SidebarSection({ collapsed, items, onNavigate, title }) {
         </p>
       ) : null}
       <div className={collapsed ? 'space-y-2.5' : 'mt-4 space-y-1.5'}>
-        {items.map((item) => (
+        {visibleItems.map((item) => (
           <SidebarLink
             collapsed={collapsed}
             key={item.label}
@@ -119,7 +120,14 @@ function SidebarShell({
   showDesktopToggle = true,
 }) {
   const user = dashboard?.user;
-  const roleLabel = dashboard?.access?.effectiveRoleLabel || 'Campus Member';
+  const roleLabel = dashboard?.roles?.[0]
+    ? formatCanonicalRole(dashboard.roles[0].canonicalRole)
+    : ['UNIVERSITY_ADMIN', 'ADMIN', 'SUPER_ADMIN'].includes(user?.userType)
+      ? 'Administrator'
+      : user?.userType === 'FACULTY'
+        ? 'Faculty Member'
+        : 'Campus Member';
+  const { can } = usePermission(dashboard?.roles ?? []);
 
   return (
     <div
@@ -176,12 +184,14 @@ function SidebarShell({
       <div className={['flex-1 overflow-y-auto', collapsed ? 'px-3 py-6' : 'px-4 py-8'].join(' ')}>
         <div className="space-y-9">
           <SidebarSection
+            can={can}
             collapsed={collapsed}
             items={mainNavigationItems}
             onNavigate={onNavigate}
             title="Main Menu"
           />
           <SidebarSection
+            can={can}
             collapsed={collapsed}
             items={accountNavigationItems}
             onNavigate={onNavigate}

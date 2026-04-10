@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { clearAuth, setCredentials } from '@auth/authSlice';
+import { clearAuth, setCredentials } from '@store/authSlice';
 import { normalizeAuthUser } from '@auth/utils/normalizeAuthUser';
 import { logout } from '@auth/logout';
 import { store } from '@store/store';

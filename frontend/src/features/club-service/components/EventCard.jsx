@@ -1,3 +1,4 @@
+import { eventStatusColors } from '@ds/tokens';
 import { formatDate, formatStatusLabel } from '@dashboard/utils/dashboardFormatters';
 
 function EventCard({ event }) {
@@ -12,9 +13,21 @@ function EventCard({ event }) {
         </p>
       </div>
 
-      <span className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs font-semibold text-[var(--color-brand)]">
-        {formatStatusLabel(event.status || 'UPCOMING')}
-      </span>
+      {(() => {
+        const colors = eventStatusColors[event.status] ?? eventStatusColors.DRAFT;
+        return (
+          <span
+            style={{
+              background: colors.bg,
+              color: colors.text,
+              border: `1px solid ${colors.border}`,
+            }}
+            className="rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap"
+          >
+            {formatStatusLabel(event.status || 'DRAFT')}
+          </span>
+        );
+      })()}
     </article>
   );
 }

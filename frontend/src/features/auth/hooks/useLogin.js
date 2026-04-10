@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getApiErrorMessage, getCurrentUser, login } from '@auth/api/auth.api';
-import { setCredentials } from '@auth/authSlice';
+import { setCredentials } from '@store/authSlice';
 import { normalizeAuthUser } from '@auth/utils/normalizeAuthUser';
 
 export function useLogin() {
