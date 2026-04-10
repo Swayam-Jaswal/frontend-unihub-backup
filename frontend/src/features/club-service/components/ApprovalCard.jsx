@@ -1,13 +1,9 @@
+import { approvalStatusColors } from '@ds/tokens';
 import { formatCanonicalRole } from '@dashboard/utils/dashboardAccess';
 import { formatStatusLabel } from '@dashboard/utils/dashboardFormatters';
 
 function ApprovalCard({ approval }) {
-  const statusColors = {
-    PENDING: { bg: '#fffbeb', text: '#b45309', border: '#f59e0b' },
-    APPROVED: { bg: '#f0fdf4', text: '#15803d', border: '#22c55e' },
-    REJECTED: { bg: '#fef2f2', text: '#b91c1c', border: '#ef4444' },
-  };
-  const colors = statusColors[approval.status] ?? statusColors.PENDING;
+  const colors = approvalStatusColors[approval.status] ?? approvalStatusColors.PENDING;
 
   return (
     <article className="card-surface-muted flex items-start justify-between gap-4 p-4">

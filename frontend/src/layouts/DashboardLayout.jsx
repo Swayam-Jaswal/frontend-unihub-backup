@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useDashboardData } from '@dashboard/hooks/useDashboardData';
+import { useDashboardStats } from '@club/hooks/useDashboardStats';
 import Navbar from '@/layouts/components/Navbar';
 import Sidebar from '@/layouts/components/Sidebar';
 
@@ -10,7 +10,7 @@ function DashboardLayout() {
   );
   const [isDesktopSidebarExpanded, setIsDesktopSidebarExpanded] = useState(true);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const dashboard = useDashboardData();
+  const dashboard = useDashboardStats();
 
   useEffect(() => {
     function handleResize() {

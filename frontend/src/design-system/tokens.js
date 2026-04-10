@@ -1,8 +1,50 @@
 export const eventStatusColors = {
-  DRAFT: { bg: '#1e293b', text: '#94a3b8', border: '#334155' },
-  UNDER_REVIEW: { bg: '#422006', text: '#f59e0b', border: '#92400e' },
-  APPROVED: { bg: '#052e16', text: '#22c55e', border: '#14532d' },
-  REJECTED: { bg: '#3b0000', text: '#ef4444', border: '#7f1d1d' },
-  ECR_PENDING: { bg: '#0c1a3a', text: '#60a5fa', border: '#1e3a8a' },
-  CLOSED: { bg: '#0f172a', text: '#475569', border: '#1e293b' },
+  DRAFT: {
+    bg: 'var(--status-event-draft-bg)',
+    text: 'var(--status-event-draft-text)',
+    border: 'var(--status-event-draft-border)',
+  },
+  UNDER_REVIEW: {
+    bg: 'var(--status-event-review-bg)',
+    text: 'var(--status-event-review-text)',
+    border: 'var(--status-event-review-border)',
+  },
+  APPROVED: {
+    bg: 'var(--status-event-approved-bg)',
+    text: 'var(--status-event-approved-text)',
+    border: 'var(--status-event-approved-border)',
+  },
+  REJECTED: {
+    bg: 'var(--status-event-rejected-bg)',
+    text: 'var(--status-event-rejected-text)',
+    border: 'var(--status-event-rejected-border)',
+  },
+  ECR_PENDING: {
+    bg: 'var(--status-event-ecr-bg)',
+    text: 'var(--status-event-ecr-text)',
+    border: 'var(--status-event-ecr-border)',
+  },
+  CLOSED: {
+    bg: 'var(--status-event-closed-bg)',
+    text: 'var(--status-event-closed-text)',
+    border: 'var(--status-event-closed-border)',
+  },
+};
+
+export const approvalStatusColors = {
+  PENDING: {
+    bg: 'var(--status-approval-pending-bg)',
+    text: 'var(--status-approval-pending-text)',
+    border: 'var(--status-approval-pending-border)',
+  },
+  APPROVED: {
+    bg: 'var(--status-approval-approved-bg)',
+    text: 'var(--status-approval-approved-text)',
+    border: 'var(--status-approval-approved-border)',
+  },
+  REJECTED: {
+    bg: 'var(--status-approval-rejected-bg)',
+    text: 'var(--status-approval-rejected-text)',
+    border: 'var(--status-approval-rejected-border)',
+  },
 };

@@ -20,7 +20,7 @@
     min-height: 100dvh;
     overflow-x: hidden;
     background:
-      radial-gradient(circle at top center, rgba(33, 199, 183, 0.12) 0, transparent 24%),
+      radial-gradient(circle at top center, var(--color-background-glow) 0, transparent 24%),
       linear-gradient(180deg, var(--color-background) 0%, var(--color-surface-dark) 100%);
     color: var(--color-text-primary);
     font-family: var(--font-family-base);

@@ -26,7 +26,7 @@ function Navbar({ dashboard, isDesktop, onMenuToggle }) {
 
           {!isDesktop ? (
             <div className="flex min-w-0 items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(135deg,#35b8ff_0%,#6a5cff_100%)] text-base font-semibold text-white shadow-[0_16px_36px_-24px_rgba(53,184,255,0.75)]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px] bg-[var(--gradient-brand-mark)] text-base font-semibold text-[var(--color-text-on-brand)] shadow-[var(--shadow-brand-mark)]">
                 U
               </div>
               <p className="truncate text-[1.35rem] font-semibold leading-none text-[var(--color-text-primary)]">

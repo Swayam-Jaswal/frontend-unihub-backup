@@ -8,7 +8,7 @@ function ProtectedRoute({ children }) {
   const isLoading = useSelector(selectAuthLoading);
 
   if (isLoading) {
-    return <Loader label="Loading..." />;
+    return <Loader fullScreen text="Loading..." />;
   }
 
   if (!user) {

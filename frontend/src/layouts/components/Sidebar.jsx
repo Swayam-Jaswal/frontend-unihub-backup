@@ -49,7 +49,7 @@ function BrandMark({ compact = false }) {
   return (
     <div
       className={[
-        'flex shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(135deg,#35b8ff_0%,#6a5cff_100%)] font-semibold text-white shadow-[0_16px_36px_-24px_rgba(53,184,255,0.75)]',
+        'flex shrink-0 items-center justify-center rounded-[16px] bg-[var(--gradient-brand-mark)] font-semibold text-[var(--color-text-on-brand)] shadow-[var(--shadow-brand-mark)]',
         compact ? 'h-10 w-10 text-base' : 'h-11 w-11 text-lg',
       ].join(' ')}
     >
@@ -69,7 +69,7 @@ function SidebarLink({ collapsed, icon, label, onNavigate, to }) {
           collapsed ? 'justify-center px-3 py-3' : 'gap-3 px-4 py-3',
           isActive
             ? 'bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-brand)_11%,transparent)_0%,color-mix(in_srgb,var(--color-brand)_8%,transparent)_100%)] text-[var(--color-brand)]'
-            : 'text-[color-mix(in_srgb,var(--color-text-secondary)_92%,white_8%)] hover:bg-[color-mix(in_srgb,var(--color-surface)_84%,transparent)] hover:text-[var(--color-text-primary)]',
+            : 'text-[color-mix(in_srgb,var(--color-text-secondary)_92%,var(--color-text-primary)_8%)] hover:bg-[color-mix(in_srgb,var(--color-surface)_84%,transparent)] hover:text-[var(--color-text-primary)]',
         ].join(' ')
       }
       end={to === '/dashboard'}
@@ -94,7 +94,7 @@ function SidebarSection({ can, collapsed, items, onNavigate, title }) {
   return (
     <section>
       {!collapsed ? (
-        <p className="px-4 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[color-mix(in_srgb,var(--color-text-secondary)_88%,white_12%)]">
+        <p className="px-4 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[color-mix(in_srgb,var(--color-text-secondary)_88%,var(--color-text-primary)_12%)]">
           {title}
         </p>
       ) : null}
@@ -132,7 +132,7 @@ function SidebarShell({
   return (
     <div
       className={[
-        'flex h-full flex-col border-r border-[var(--color-border)] bg-[linear-gradient(180deg,#0a0e18_0%,#0b0f1a_100%)]',
+        'flex h-full flex-col border-r border-[var(--color-border)] bg-[var(--gradient-sidebar)]',
         collapsed ? 'w-[84px]' : 'w-[320px]',
       ].join(' ')}
     >
@@ -148,7 +148,7 @@ function SidebarShell({
             {showDesktopToggle ? (
               <button
                 aria-label="Expand sidebar"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[color-mix(in_srgb,var(--color-text-secondary)_92%,white_8%)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)]"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[color-mix(in_srgb,var(--color-text-secondary)_92%,var(--color-text-primary)_8%)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)]"
                 onClick={onToggleDesktop}
                 type="button"
               >
@@ -170,7 +170,7 @@ function SidebarShell({
             {showDesktopToggle ? (
               <button
                 aria-label="Collapse sidebar"
-                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[color-mix(in_srgb,var(--color-text-secondary)_92%,white_8%)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)]"
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[color-mix(in_srgb,var(--color-text-secondary)_92%,var(--color-text-primary)_8%)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)]"
                 onClick={onToggleDesktop}
                 type="button"
               >
@@ -203,12 +203,12 @@ function SidebarShell({
       <div className={collapsed ? 'px-2 pb-3 pt-2' : 'p-4'}>
         <div
           className={[
-            'rounded-[22px] border border-[color-mix(in_srgb,var(--color-border)_90%,black_10%)] bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-surface)_92%,transparent)_0%,color-mix(in_srgb,var(--color-surface-dark)_88%,transparent)_100%)]',
+            'rounded-[22px] border border-[color-mix(in_srgb,var(--color-border)_90%,var(--color-background)_10%)] bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-surface)_92%,transparent)_0%,color-mix(in_srgb,var(--color-surface-dark)_88%,transparent)_100%)]',
             collapsed ? 'p-2.5' : 'p-3.5',
           ].join(' ')}
         >
           <div className={collapsed ? 'flex justify-center' : 'flex items-center gap-3'}>
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,#35b8ff_0%,#6a5cff_100%)] text-sm font-semibold text-white shadow-[0_18px_40px_-24px_rgba(53,184,255,0.7)]">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--gradient-brand-mark)] text-sm font-semibold text-[var(--color-text-on-brand)] shadow-[var(--shadow-user-avatar)]">
               {getUserInitials(user)}
             </div>
             {!collapsed ? (
@@ -229,7 +229,7 @@ function SidebarShell({
 function MobileSidebar({ dashboard, onClose }) {
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 z-40 bg-[rgba(5,8,15,0.66)] backdrop-blur-[2px] lg:hidden" />
+      <Dialog.Overlay className="fixed inset-0 z-40 bg-[var(--color-overlay)] backdrop-blur-[2px] lg:hidden" />
       <Dialog.Content className="fixed inset-y-0 left-0 z-50 w-[320px] max-w-[calc(100vw-1rem)] lg:hidden">
         <Dialog.Title className="sr-only">Sidebar Navigation</Dialog.Title>
         <div className="relative h-full">

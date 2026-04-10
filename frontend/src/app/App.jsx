@@ -1,4 +1,5 @@
 import AppProviders from '@/app/AppProviders';
+import Loader from '@ds/components/Loader';
 import { selectAuthLoading } from '@store/authSlice';
 import { useAuth } from '@auth/hooks/useAuth';
 import AppRoutes from '@/routes/AppRoutes';
@@ -9,7 +10,7 @@ function AppContent() {
   const isLoading = useSelector(selectAuthLoading);
 
   if (isLoading) {
-    return <div>Initializing session...</div>;
+    return <Loader fullScreen text="Initializing session..." />;
   }
 
   return <AppRoutes />;
