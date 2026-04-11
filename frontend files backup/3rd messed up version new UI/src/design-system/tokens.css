@@ -1,0 +1,101 @@
+:root {
+  --font-family-base: "Inter", "Segoe UI", sans-serif;
+  --font-family-mono: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
+
+  --background: 228 25% 5%;
+  --background-elevated: 232 30% 8%;
+  --foreground: 210 40% 98%;
+  --card: 229 24% 10%;
+  --card-foreground: 210 40% 98%;
+  --popover: 229 24% 10%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 199 89% 48%;
+  --primary-foreground: 222 47% 11%;
+  --secondary: 263 70% 58%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 226 20% 14%;
+  --muted-foreground: 220 15% 70%;
+  --accent: 190 88% 52%;
+  --accent-foreground: 222 47% 11%;
+  --border: 225 24% 20%;
+  --input: 225 24% 18%;
+  --ring: 199 89% 48%;
+  --success: 151 68% 48%;
+  --warning: 39 95% 57%;
+  --destructive: 0 84% 60%;
+  --info: 212 100% 66%;
+
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 0.125rem);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+  --radius-xl: calc(var(--radius) + 0.75rem);
+  --radius-full: 999px;
+
+  --color-background: hsl(var(--background));
+  --color-surface: hsl(var(--card));
+  --color-surface-soft: hsl(229 22% 12%);
+  --color-surface-dark: hsl(var(--background-elevated));
+  --color-border: hsl(var(--border));
+  --color-text-primary: hsl(var(--foreground));
+  --color-text-secondary: hsl(var(--muted-foreground));
+  --color-text-inverse: hsl(222 47% 11%);
+  --color-text-on-brand: hsl(210 40% 98%);
+  --color-brand: hsl(var(--primary));
+  --color-brand-soft: hsl(var(--primary) / 0.18);
+  --color-success: hsl(var(--success));
+  --color-danger: hsl(var(--destructive));
+  --color-warning: hsl(var(--warning));
+  --color-info: hsl(var(--info));
+  --color-overlay: hsl(var(--background) / 0.76);
+  --color-background-glow: hsl(var(--primary) / 0.12);
+
+  --gradient-brand-mark:
+    linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+  --gradient-page:
+    radial-gradient(circle at top left, hsl(var(--primary) / 0.12), transparent 28%),
+    radial-gradient(circle at top right, hsl(var(--secondary) / 0.12), transparent 26%),
+    linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background-elevated)) 100%);
+  --gradient-glass:
+    linear-gradient(140deg, hsl(var(--card) / 0.88) 0%, hsl(var(--background-elevated) / 0.72) 100%);
+  --gradient-muted:
+    linear-gradient(160deg, hsl(228 20% 11% / 0.88) 0%, hsl(232 28% 10% / 0.7) 100%);
+  --gradient-border:
+    linear-gradient(135deg, hsl(var(--primary) / 0.38), hsl(var(--secondary) / 0.22));
+  --gradient-sidebar:
+    linear-gradient(180deg, hsl(228 26% 7% / 0.98) 0%, hsl(232 32% 9% / 0.96) 100%);
+
+  --shadow-card: 0 32px 64px -36px hsl(199 89% 48% / 0.42);
+  --shadow-brand-mark: 0 18px 38px -24px hsl(199 89% 48% / 0.66);
+  --shadow-user-avatar: 0 20px 42px -24px hsl(263 70% 58% / 0.45);
+  --shadow-glow: 0 0 0 1px hsl(var(--border) / 0.25), 0 22px 55px -36px hsl(var(--primary) / 0.45);
+
+  --status-event-draft-bg: hsl(220 18% 24% / 0.22);
+  --status-event-draft-text: hsl(220 18% 72%);
+  --status-event-draft-border: hsl(220 18% 40% / 0.32);
+  --status-event-review-bg: hsl(280 70% 58% / 0.16);
+  --status-event-review-text: hsl(278 90% 78%);
+  --status-event-review-border: hsl(278 88% 68% / 0.28);
+  --status-event-approved-bg: hsl(151 68% 48% / 0.16);
+  --status-event-approved-text: hsl(151 80% 70%);
+  --status-event-approved-border: hsl(151 70% 56% / 0.28);
+  --status-event-rejected-bg: hsl(0 84% 60% / 0.16);
+  --status-event-rejected-text: hsl(0 92% 73%);
+  --status-event-rejected-border: hsl(0 84% 60% / 0.28);
+  --status-event-ecr-bg: hsl(212 100% 66% / 0.16);
+  --status-event-ecr-text: hsl(206 100% 75%);
+  --status-event-ecr-border: hsl(212 100% 66% / 0.28);
+  --status-event-closed-bg: hsl(222 16% 24% / 0.2);
+  --status-event-closed-text: hsl(220 14% 68%);
+  --status-event-closed-border: hsl(220 14% 38% / 0.28);
+
+  --status-approval-pending-bg: hsl(39 95% 57% / 0.15);
+  --status-approval-pending-text: hsl(42 100% 70%);
+  --status-approval-pending-border: hsl(39 95% 57% / 0.28);
+  --status-approval-approved-bg: hsl(151 68% 48% / 0.16);
+  --status-approval-approved-text: hsl(151 80% 70%);
+  --status-approval-approved-border: hsl(151 70% 56% / 0.28);
+  --status-approval-rejected-bg: hsl(0 84% 60% / 0.16);
+  --status-approval-rejected-text: hsl(0 92% 73%);
+  --status-approval-rejected-border: hsl(0 84% 60% / 0.28);
+}
